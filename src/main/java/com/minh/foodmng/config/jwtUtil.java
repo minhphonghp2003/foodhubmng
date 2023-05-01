@@ -1,7 +1,6 @@
 package com.minh.foodmng.config;
 
 import com.minh.foodmng.user.User;
-import com.nimbusds.jose.Algorithm;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -32,15 +31,6 @@ public class jwtUtil {
             throw new RuntimeException(e);
         }
     }
-
-    KeyPair kp = keyGenerator.genKeyPair();
-    PublicKey publicKey = (PublicKey) kp.getPublic();
-    PrivateKey privateKey = (PrivateKey) kp.getPrivate();
-    private static final Key secret = MacProvider.generateKey(SignatureAlgorithm.HS256);
-    private static final byte[] secretBytes = secret.getEncoded();
-    private static final String base64SecretBytes = Base64.getEncoder().encodeToString(secretBytes);
-
-
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

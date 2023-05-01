@@ -1,5 +1,6 @@
 package com.minh.foodmng.user;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +26,8 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public List<User> getAllUser() {
-        return userService.getAllUser();
+    public ResponseEntity<Page<User>> getAllUser() {
+        return ResponseEntity.ok(userService.getAllUser());
     }
 
 }

@@ -25,11 +25,9 @@ public class SecurityConfig {
         http.authorizeRequests().requestMatchers("/user/auth/**").permitAll().anyRequest().hasAnyAuthority("admin");
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(authEntryPoint)
-                .and()
-
-//                .addFilterBefore(exceptionHandlerFilter, LogoutFilter.class)
+//                .exceptionHandling()
+//                .authenticationEntryPoint(authEntryPoint)
+//                .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

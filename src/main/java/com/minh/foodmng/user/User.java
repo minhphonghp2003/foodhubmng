@@ -13,24 +13,25 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "users", schema = "public")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    protected UUID id;
     @Column(name = "first_name", nullable = false)
-    private String firstname;
+    protected String firstname;
     @Column(name = "last_name", nullable = false)
-    private String lastname;
+    protected String lastname;
     @Column(unique = true)
-    private String email;
+    protected String email;
     @Column(nullable = false,unique = true)
-    private String username;
+    protected String username;
     @Column(nullable = false)
     private String password;
     @Column(length = 15)
-    private String phone;
+    protected String phone;
     @Enumerated(EnumType.STRING)
-    private Role role;
+    protected Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -2,6 +2,8 @@ package com.minh.foodmng.user;
 
 import com.minh.foodmng.config.jwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,8 +24,9 @@ public class UserService {
     Optional<User> getUserById(UUID id){
         return userRepository.findById(id);
     }
-    List<User> getAllUser(){
-        return userRepository.findAll();
+    Page<User> getAllUser(){
+
+        return userRepository.findAll(PageRequest.of(1,4));
     }
     void deleteUserBy(UUID id){
         userRepository.deleteById(id);
