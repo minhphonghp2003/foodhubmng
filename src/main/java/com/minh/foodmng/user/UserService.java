@@ -21,9 +21,7 @@ public class UserService {
     final private UserRepository userRepository;
     final private AuthenticationManager authenticationManager;
     final private jwtUtil jwtUtil;
-    Optional<User> getUserById(UUID id){
-        return userRepository.findById(id);
-    }
+
     Page<User> getAllUser(){
 
         return userRepository.findAll(PageRequest.of(1,4));
