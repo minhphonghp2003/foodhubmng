@@ -1,5 +1,7 @@
 package com.minh.foodmng.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +15,10 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "users", schema = "public")
+@JsonIgnoreProperties(value = {
+        "id",
+        "password"
+})
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class User implements UserDetails {
     @Id

@@ -3,6 +3,7 @@ package com.minh.foodmng.user;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +13,12 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
-@PreAuthorize("isAuthenticated()")
 public class UserController {
     UserService userService;
-
-    UserController(UserService userService) {
+UserController(UserService userService) {
         this.userService = userService;
     }
-    @PreAuthorize("permitAll()")
+    @PostAuthorize("returnObject.body.role == 'admin' or returnObject.body.role == 'staff'")
     @PostMapping("/auth/login")
     public ResponseEntity<AuthResponse> login(LoginRequest request) {
         AuthResponse response = userService.login(request);
@@ -32,10 +31,9 @@ public class UserController {
         userService.deleteUserBy(UUID.fromString(id));
         return ResponseEntity.ok("Done");
     }
-    @GetMapping("/")
-    @PreAuthorize("hasAnyAuthority('staff', 'admin')")
-    public ResponseEntity<Page<User>> getAllUser() {
-        return ResponseEntity.ok(userService.getAllUser());
+    @GetMapping("/all")
+    public ResponseEntity<Page<User>> getAllUser(int page, int size) {
+        return ResponseEntity.ok(userService.getAllUser(page,size));
     }
 
 }

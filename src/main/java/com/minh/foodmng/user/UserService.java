@@ -22,9 +22,9 @@ public class UserService {
     final private AuthenticationManager authenticationManager;
     final private jwtUtil jwtUtil;
 
-    Page<User> getAllUser(){
-
-        return userRepository.findAll(PageRequest.of(1,4));
+    Page<User> getAllUser(int page, int size){
+        Page<User> result =  userRepository.findAll(PageRequest.of(page,size));
+        return result;
     }
     void deleteUserBy(UUID id){
         userRepository.deleteById(id);
@@ -34,6 +34,6 @@ public class UserService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.username, request.password));
         User user = userRepository.findByUsername(request.getUsername());
         String token =jwtUtil.generateToken(user);
-        return AuthResponse.builder().token(token).build();
+        return AuthResponse.builder().token(token).role(user.getRole().name()).build();
     }
 }
