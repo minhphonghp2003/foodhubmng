@@ -9,12 +9,13 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Data
 @Table(name = "products")
-public class Food {
+public class Food  extends CreatedUpdated{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -26,12 +27,7 @@ public class Food {
     private String price;
     @Column(nullable = false)
     private String description;
-    @CreationTimestamp
-    @Column(updatable = false, name = "\"createdAt\"")
-    private LocalDateTime createdAt;
 
-    @UpdateTimestamp
-    @Column(name = "\"updatedAt\"")
-    private LocalDateTime updatedAt;
+
 
 }

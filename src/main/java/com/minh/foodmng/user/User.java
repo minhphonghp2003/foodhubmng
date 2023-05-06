@@ -2,8 +2,10 @@ package com.minh.foodmng.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +21,8 @@ import java.util.UUID;
         "id",
         "password"
 })
+
+@ToString(exclude = { "tables" })
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class User implements UserDetails {
     @Id
@@ -38,6 +42,9 @@ public class User implements UserDetails {
     protected String phone;
     @Enumerated(EnumType.STRING)
     protected Role role;
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<com.minh.foodmng.order.Table> tables;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
