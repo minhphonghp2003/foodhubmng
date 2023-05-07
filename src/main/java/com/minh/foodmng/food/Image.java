@@ -7,10 +7,7 @@ import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.FileInputStream;
@@ -37,6 +34,9 @@ public class Image  {
     @JsonIgnore
     @ManyToMany(mappedBy = "images")
     private List<Food>foods;
+    @JsonIgnore
+    @OneToOne(mappedBy = "image")
+    private Category category;
     public String getLink() {
         try{
 

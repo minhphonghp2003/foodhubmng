@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,5 +32,13 @@ public class FoodController {
     ResponseEntity<Page<FoodReview>> getAllReviews(int page, int size){
         Page<FoodReview> reviews = foodService.getAllReview(page,size);
         return ResponseEntity.ok(reviews);
+    }
+    @GetMapping("/allcategories")
+    List<Category> getAllCategories(){
+        return foodService.getAllCategories();
+    }
+    @GetMapping("/category/{id}")
+    Category getCategoryBy(@PathVariable Integer id){
+        return foodService.getCategoryBy(id);
     }
 }

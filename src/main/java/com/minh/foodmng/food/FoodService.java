@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -23,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class FoodService {
     final private FoodRepository foodRepository;
     final private ReviewRepository reviewRepository;
+    final private CategoryRepository categoryRepository;
 
     Page<Food> getAllFood(int page, int size) throws IOException {
         Page<Food> foods = foodRepository.findAll(PageRequest.of(page, size));
@@ -38,4 +40,12 @@ public class FoodService {
     public Page<FoodReview> getAllReview(int page, int size) {
         return reviewRepository.findAll(PageRequest.of(page, size));
     }
+
+    public List<Category> getAllCategories(){
+        return categoryRepository.findAll();
+    }
+    public Category getCategoryBy(Integer id){
+        return categoryRepository.findById(id).get();
+    }
+
 }

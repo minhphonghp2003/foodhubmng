@@ -39,6 +39,14 @@ public class Food  extends CreatedUpdated{
     @OneToMany(mappedBy = "food")
     @JsonIgnore
     private List<FoodReview> reviews;
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "product_categories",
+            joinColumns = @JoinColumn(name = "\"productId\""),
+            inverseJoinColumns = @JoinColumn(name = "\"categoryId\"")
+    )
+    private List<Category> categories;
 
 
 
