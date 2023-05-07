@@ -1,5 +1,6 @@
 package com.minh.foodmng.food;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,6 +28,17 @@ public class Food  extends CreatedUpdated{
     private String price;
     @Column(nullable = false)
     private String description;
+    @ManyToMany
+    @JoinTable(
+            name = "product_images",
+            joinColumns = @JoinColumn(name = "\"productId\""),
+            inverseJoinColumns = @JoinColumn(name = "\"imageId\"")
+    )
+    private List<Image> images;
+
+    @OneToMany(mappedBy = "food")
+    @JsonIgnore
+    private List<FoodReview> reviews;
 
 
 
