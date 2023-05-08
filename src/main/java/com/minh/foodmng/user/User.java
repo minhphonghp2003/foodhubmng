@@ -3,6 +3,7 @@ package com.minh.foodmng.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.minh.foodmng.order.Order;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -22,8 +23,8 @@ import java.util.UUID;
         "password"
 })
 
-@ToString(exclude = { "tables" })
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@ToString(exclude = {"tables"})
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -34,24 +35,29 @@ public class User implements UserDetails {
     protected String lastname;
     @Column(unique = true)
     protected String email;
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     protected String username;
-    @Column(nullable = false)
-    private String password;
     @Column(length = 15)
     protected String phone;
     @Enumerated(EnumType.STRING)
     protected Role role;
+    @Column(nullable = false)
+    private String password;
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
     private List<com.minh.foodmng.order.Table> tables;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Order> orders;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 

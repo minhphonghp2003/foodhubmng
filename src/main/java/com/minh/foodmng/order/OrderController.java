@@ -1,7 +1,5 @@
 package com.minh.foodmng.order;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -12,22 +10,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/table")
+@RequestMapping("/order")
 @PreAuthorize("hasAnyAuthority('admin','staff')")
 @RequiredArgsConstructor
-public class TableController {
-    final private TableService tableService;
+public class OrderController {
+    final private OrderService orderService;
 
-    @GetMapping("/all")
+
+    @GetMapping("/table/all ")
     public ResponseEntity<Page<Table>> getAllTable(int page, int size) {
-        Page<Table> tables = tableService.findAll(page, size);
+        Page<Table> tables = orderService.findAllTable(page, size);
         return ResponseEntity.ok(tables);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/table/{id}")
     public ResponseEntity<Table> getTableBy(@PathVariable Integer id) {
-        Table table = tableService.findById(id);
+        Table table = orderService.findById(id);
         return ResponseEntity.ok(table);
+    }
+    @GetMapping("/all")
+    public ResponseEntity<Page<Order>> getAllOrder(int page, int size) {
+        Page<Order> orders = orderService.findAllOrder(page, size);
+        return ResponseEntity.ok(orders);
     }
 
 }

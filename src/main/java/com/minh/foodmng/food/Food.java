@@ -1,6 +1,7 @@
 package com.minh.foodmng.food;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.minh.foodmng.order.Order;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -47,6 +48,10 @@ public class Food  extends CreatedUpdated{
             inverseJoinColumns = @JoinColumn(name = "\"categoryId\"")
     )
     private List<Category> categories;
+
+    @OneToMany(mappedBy = "food")
+    @JsonIgnore
+    private List<Order> orders;
 
 
 

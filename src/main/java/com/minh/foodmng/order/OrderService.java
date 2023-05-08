@@ -9,13 +9,17 @@ import org.springframework.stereotype.Service;
 @Service
 @Data
 @RequiredArgsConstructor
-public class TableService {
+public class OrderService {
     final private TableRepository tableRepository;
+    final private OrderRepository orderRepository;
     public Table findById(Integer id){
         Table table= tableRepository.findById(id).get();
         return table;
     }
-    public Page<Table> findAll(int page, int size ){
+    public Page<Table> findAllTable(int page, int size ){
         return tableRepository.findAll(PageRequest.of(page,size));
+    }
+    public Page<Order> findAllOrder(int page, int size){
+       return orderRepository.findAll(PageRequest.of(page,size));
     }
 }
