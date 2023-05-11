@@ -7,9 +7,9 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5432/restaurant
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://tiny.db.elephantsql.com/bbgoeoxh
+    username: bbgoeoxh
+    password: ZKrgm-B4VSBt92fpVrBrZ0UtJok8wbQx
     driverClassName: org.postgresql.Driver
 
 
