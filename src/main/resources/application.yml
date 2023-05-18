@@ -14,6 +14,7 @@ spring:
 
 
 server:
+  port: 9999
   error:
     include-stacktrace: never
 

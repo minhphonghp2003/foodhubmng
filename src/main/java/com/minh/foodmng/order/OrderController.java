@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OrderController {
     final private OrderService orderService;
-
 
     @GetMapping("/table/all ")
     public ResponseEntity<Page<Table>> getAllTable(int page, int size) {
@@ -29,7 +26,7 @@ public class OrderController {
         return ResponseEntity.ok(table);
     }
     @GetMapping("/all")
-    public ResponseEntity<Page<Order>> getAllOrder(int page, int size) {
+    public ResponseEntity<Page<Order>> getAllOrder(@RequestParam int page, int size) {
         Page<Order> orders = orderService.findAllOrder(page, size);
         return ResponseEntity.ok(orders);
     }
